@@ -241,11 +241,30 @@ subnet 10.1.1.0 netmask 255.255.255.0 {
 }
 ```
 ```
-[toto@dhcplan1 ~]$ ll /var/lib/dhcpd
-total 8
--rw-r--r-- 1 dhcpd dhcpd   0 Oct 26  2023 dhcpd6.leases
--rw-r--r-- 1 dhcpd dhcpd 280 Oct  4 09:58 dhcpd.leases
--rw-r--r-- 1 dhcpd dhcpd 221 Oct  4 09:57 dhcpd.leases~
+[toto@dhcplan1 ~]$ systemctl status dhcpd
+● dhcpd.service - DHCPv4 Server Daemon
+     Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; preset: disabled)
+     Active: active (running) since Tue 2024-10-08 09:07:56 CEST; 1min 50s ago
+       Docs: man:dhcpd(8)
+             man:dhcpd.conf(5)
+   Main PID: 762 (dhcpd)
+     Status: "Dispatching packets..."
+      Tasks: 1 (limit: 4674)
+     Memory: 7.1M
+        CPU: 15ms
+     CGroup: /system.slice/dhcpd.service
+             └─762 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no-pid
+
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Config file: /etc/dhcp/dhcpd.conf
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Database file: /var/lib/dhcpd/dhcpd.leases
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: PID file: /var/run/dhcpd.pid
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Source compiled to use binary-leases
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Wrote 1 leases to leases file.
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Listening on LPF/enp0s3/08:00:27:7c:0a:2d/10.1.1.0/24
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Sending on   LPF/enp0s3/08:00:27:7c:0a:2d/10.1.1.0/24
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Sending on   Socket/fallback/fallback-net
+Oct 08 09:07:56 dhcplan1 dhcpd[762]: Server starting service.
+Oct 08 09:07:56 dhcplan1 systemd[1]: Started DHCPv4 Server Daemon.
 ```
 
 ### ☀️ Sur node1.lan1.tp2
